@@ -2,8 +2,10 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
+import PersonPinCircleRoundedIcon from '@mui/icons-material/PersonPinCircleRounded';
 import Card from '@mui/material/Card';
 import Typography from '@mui/material/Typography';
+import Chip from '@mui/material/Chip';
 
 export const Home = () => {
     const [ipAddress, setIPAddress] = useState([]);
@@ -47,7 +49,7 @@ export const Home = () => {
             <Typography gutterBottom variant="h4">
                 {ipAddress.IP}
             </Typography>
-            <Typography> {ip ? ip.country_name : "Brave doesn't support this detection"}</Typography>
+            <Chip label={ip ? ip.country_name : "Brave doesn't geolocation"} icon={<PersonPinCircleRoundedIcon />} />
         </Card>
     )
 }
