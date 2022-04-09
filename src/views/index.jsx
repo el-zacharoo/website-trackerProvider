@@ -25,7 +25,11 @@ export const Home = () => {
     }
 
     useEffect(() => {
-        getData()
+        if (navigator.brave) {
+            null
+        } else {
+            getData()
+        }
         const fetchIP = async () => {
             const resp = await fetch('http://localhost:8080/ip', getReqInit);
             if (resp.ok) {
@@ -40,17 +44,11 @@ export const Home = () => {
     return (
         <Card sx={{ p: 2 }}>
             <Typography gutterBottom variant="h3">Hello, your IP address is</Typography>
-
             <Typography gutterBottom variant="h4">
                 {ipAddress.IP}
             </Typography>
-            {navigator.brave ?
-                <Typography>Brave doesn't support this detection</Typography>
-                :
-                <Typography>{ip.country_name}</Typography>
-            }
+            <Typography> {ip ? ip.country_name : "Brave doesn't support this detection"}</Typography>
         </Card>
-
     )
 }
 export default Home
