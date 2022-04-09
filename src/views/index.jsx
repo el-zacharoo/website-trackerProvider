@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
+import ErrorOutlineRoundedIcon from '@mui/icons-material/ErrorOutlineRounded';
 import PersonPinCircleRoundedIcon from '@mui/icons-material/PersonPinCircleRounded';
 import Card from '@mui/material/Card';
 import Typography from '@mui/material/Typography';
@@ -41,7 +42,7 @@ export const Home = () => {
         };
         fetchIP();
     }, []);
-
+    console.log(ip)
 
     return (
         <Card sx={{ p: 2 }}>
@@ -49,7 +50,7 @@ export const Home = () => {
             <Typography gutterBottom variant="h4">
                 {ipAddress.IP}
             </Typography>
-            <Chip label={ip ? ip.country_name : "Brave doesn't geolocation"} icon={<PersonPinCircleRoundedIcon />} />
+            <Chip color={ip ? "success" : "error"} label={ip ? ip.country_name : `Brave doesn't geolocation`} icon={ip ? <PersonPinCircleRoundedIcon /> : <ErrorOutlineRoundedIcon />} />
         </Card>
     )
 }
