@@ -50,7 +50,7 @@ export const Home = () => {
             <Typography gutterBottom variant="h4">
                 {ipAddress.IP}
             </Typography>
-            <Chip color={ip ? "success" : "error"} label={ip ? ip.country_name : `Brave doesn't geolocation`} icon={ip ? <PersonPinCircleRoundedIcon /> : <ErrorOutlineRoundedIcon />} />
+            <Chip color={ip ? "success" : "error"} label={ip ? ip.country_name : `Browser doesn't supoport geolocation`} icon={ip ? <PersonPinCircleRoundedIcon /> : <ErrorOutlineRoundedIcon />} />
         </Card>
     )
 }
