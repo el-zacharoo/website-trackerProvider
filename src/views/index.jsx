@@ -12,7 +12,7 @@ export const Home = () => {
     const getData = async () => {
         const res = await axios.get('https://geolocation-db.com/json/')
         console.log(res.data);
-        setIP(res.data.country_name)
+        setIP(res.data)
     }
 
     const getReqInit = {
@@ -36,13 +36,19 @@ export const Home = () => {
         fetchIP();
     }, []);
 
+
     return (
         <Card sx={{ p: 2 }}>
             <Typography gutterBottom variant="h3">Hello, your IP address is</Typography>
-            <Typography variant="h4">
+
+            <Typography gutterBottom variant="h4">
                 {ipAddress.IP}
             </Typography>
-            <h4>{ip}</h4>
+            {navigator.brave ?
+                <Typography>Brave doesn't support this detection</Typography>
+                :
+                <Typography>{ip.country_name}</Typography>
+            }
         </Card>
 
     )
