@@ -31,6 +31,7 @@ const initialState = {
         country: '',
         countryCode: '',
         ipAddress: '',
+        platform: ''
     },
     error: null,
 };

@@ -28,6 +28,7 @@ export const Home = () => {
         geolocation.country = ip.country_name
         geolocation.countryCode = ip.country_code
         geolocation.ipAddress = ip.IPv4
+        geolocation.platform = navigator.platform
         create(geolocation)
         setOpen(false)
     }
@@ -39,6 +40,8 @@ export const Home = () => {
             getData()
         }
     }, []);
+
+    console.log(navigator)
 
     return (
         <Dialog open={open}>
