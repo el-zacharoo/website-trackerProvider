@@ -1,16 +1,22 @@
-
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 
-import ErrorOutlineRoundedIcon from '@mui/icons-material/ErrorOutlineRounded';
-import PersonPinCircleRoundedIcon from '@mui/icons-material/PersonPinCircleRounded';
-import Card from '@mui/material/Card';
-import Typography from '@mui/material/Typography';
-import Chip from '@mui/material/Chip';
+import axios from 'axios';
+import Dialog from '@mui/material/Dialog';
+import Button from '@mui/material/Button';
+import DialogTitle from '@mui/material/DialogTitle';
+
+import { useApi } from '../components/Context';
+import { Typography } from '@mui/material';
 
 export const Home = () => {
-    const [ipAddress, setIPAddress] = useState([]);
-    const [ip, setIP] = useState('');
+    const [open, setOpen] = useState(true)
+    const [state, { create }] = useApi();
+    const [ip, setIP] = useState();
+    const [geolocation, setGeolocation] = useState();
+
+    useEffect(() => {
+        setGeolocation(state.geolocation);
+    }, [state.geolocation]);
 
     const getData = async () => {
         const res = await axios.get('https://geolocation-db.com/json/')
@@ -18,13 +24,12 @@ export const Home = () => {
         setIP(res.data)
     }
 
-    const getReqInit = {
-        method: "GET",
-        mode: 'cors',
-        headers: {
-            Accept: 'application/ json',
-            'Content-Type': 'application/json'
-        },
+    const push = () => {
+        geolocation.country = ip.country_name
+        geolocation.countryCode = ip.country_code
+        geolocation.ipAddress = ip.IPv4
+        create(geolocation)
+        setOpen(false)
     }
 
     useEffect(() => {
@@ -33,25 +38,14 @@ export const Home = () => {
         } else {
             getData()
         }
-        const fetchIP = async () => {
-            const resp = await fetch('http://localhost:8080/ip', getReqInit);
-            if (resp.ok) {
-                const json = await resp.json();
-                setIPAddress(json);
-            }
-        };
-        fetchIP();
     }, []);
-    console.log(ip)
 
     return (
-        <Card sx={{ p: 2 }}>
-            <Typography gutterBottom variant="h3">Hello, your IP address is</Typography>
-            <Typography gutterBottom variant="h4">
-                {ipAddress.IP}
-            </Typography>
-            <Chip color={ip ? "success" : "error"} label={ip ? ip.country_name : `Browser doesn't supoport geolocation`} icon={ip ? <PersonPinCircleRoundedIcon /> : <ErrorOutlineRoundedIcon />} />
-        </Card>
+        <Dialog open={open}>
+            <DialogTitle >Before we begin</DialogTitle>
+            <Typography sx={{ p: 2 }}>this site would like to use your location</Typography>
+            <Button color="secondary" variant="contained" onClick={push}>allow location</Button>
+        </Dialog>
     )
 }
 export default Home
