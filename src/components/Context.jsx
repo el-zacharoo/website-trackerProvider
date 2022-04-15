@@ -1,5 +1,5 @@
-import React, { createContext, useContext, useCallback, useMemo, useReducer } from 'react';
-
+import React, { createContext, useContext, useCallback, useMemo, useReducer, useState } from 'react';
+import axios from 'axios';
 import cloneDeep from 'lodash.clonedeep';
 
 const reducer = (state, action) => {
@@ -68,10 +68,14 @@ export const useApi = () => {
 
     }, [dispatch]);
 
+    const getData = async ({ setIP }) => {
+        const res = await axios.get('https://geolocation-db.com/json/')
+        setIP(res.data)
+    }
 
     const actions = useMemo(() => {
-        return { create }
-    }, [create]);
+        return { create, getData }
+    }, [create, getData]);
 
     return [state, actions];
 }

@@ -1,53 +1,42 @@
 import React, { useEffect, useState } from 'react';
 
-import axios from 'axios';
-import Dialog from '@mui/material/Dialog';
 import Button from '@mui/material/Button';
-import DialogTitle from '@mui/material/DialogTitle';
+import Dialog from '@mui/material/Dialog';
+import CardActions from '@mui/material/CardActions';
+import CardHeader from '@mui/material/CardHeader';
 
 import { useApi } from '../components/Context';
-import { Typography } from '@mui/material';
 
 export const Home = () => {
     const [open, setOpen] = useState(true)
-    const [state, { create }] = useApi();
+    const [state, { create, getData }] = useApi();
     const [ip, setIP] = useState();
     const [geolocation, setGeolocation] = useState();
 
     useEffect(() => {
         setGeolocation(state.geolocation);
+        if (navigator.brave) {
+            null
+        } else {
+            getData({ setIP: setIP })
+        }
     }, [state.geolocation]);
 
-    const getData = async () => {
-        const res = await axios.get('https://geolocation-db.com/json/')
-        console.log(res.data);
-        setIP(res.data)
-    }
-
     const push = () => {
-        geolocation.country = ip.country_name
-        geolocation.countryCode = ip.country_code
-        geolocation.ipAddress = ip.IPv4
+        geolocation.country = ip && ip.country_name
+        geolocation.countryCode = ip && ip.country_code
+        geolocation.ipAddress = ip && ip.IPv4
         geolocation.platform = navigator.platform
         create(geolocation)
         setOpen(false)
     }
 
-    useEffect(() => {
-        if (navigator.brave) {
-            null
-        } else {
-            getData()
-        }
-    }, []);
-
-    console.log(navigator)
-
     return (
         <Dialog open={open}>
-            <DialogTitle >Before we begin</DialogTitle>
-            <Typography sx={{ p: 2 }}>this site would like to use your location</Typography>
-            <Button color="secondary" variant="contained" onClick={push}>allow location</Button>
+            <CardHeader title="Before we begin" subheader="this site would like to use your location" />
+            <CardActions>
+                <Button fullWidth color="secondary" variant="contained" onClick={push}>Allow location</Button>
+            </CardActions>
         </Dialog>
     )
 }

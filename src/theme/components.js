@@ -1,4 +1,4 @@
-// import { palette } from './palette';
+import { palette } from './palette';
 
 export const components = {
     MuiCssBaseline: {
@@ -7,27 +7,38 @@ export const components = {
     },
     MuiButton: {
         styleOverrides: {
-            root: {
-                lineHeight: '1.5rem',
-                paddingTop: '0.5rem',
-                paddingBottom: '0.5rem'
-            },
-            text: {
-                marginLeft: '1.2rem',
-                marginRight: '1.2rem',
-                borderRadius: 0
-            },
             contained: {
                 boxShadow: 'none',
-                paddingLeft: '1.2rem',
-                paddingRight: '1.2rem',
-
-            },
-            outlined: {
-                paddingLeft: '1.2rem',
-                paddingRight: '1.2rem',
+                paddingTop: '0.5rem',
+                paddingBottom: '0.5rem',
+                '&:hover': {
+                    boxShadow: 'none',
+                },
+            }
+        },
+    },
+    MuiCardActions: {
+        styleOverrides: {
+            root: {
+                display: 'flex',
+                alignItems: 'stretch',
+                justifyContent: 'space-between'
             }
         }
     },
-
+    MuiCardHeader: {
+        styleOverrides: {
+            title: {
+                fontWeight: 600,
+                fontSize: '1.2rem',
+                lineHeight: 1.43,
+            },
+            subheader: {
+                fontWeight: 400,
+                fontSize: '0.875rem',
+                lineHeight: 1.5,
+                color: palette.text.secondary,
+            },
+        }
+    },
 }
