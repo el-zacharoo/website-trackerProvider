@@ -8,7 +8,7 @@ import { Outline } from '@/components/Outline';
 import { theme } from '@/theme';
 import Home from '@/views';
 import Viewport from '@/Viewport';
-import { GeoProvider } from './components/Context'
+import { Provider } from '@/components/Provider'
 
 export const App = () => {
   return (
@@ -17,15 +17,14 @@ export const App = () => {
       <Router>
         <Viewport>
           <Suspense fallback={<Outline visible={true} />}>
-            <GeoProvider>
+            <Provider>
               <Routes>
                 <Route exact path="/" element={<Home />} />
               </Routes>
-            </GeoProvider>
+            </Provider>
           </Suspense>
         </Viewport>
       </Router>
-
     </ThemeProvider>
   )
 }

@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useCallback, useMemo, useReducer, useState } from 'react';
+import React, { createContext, useContext, useCallback, useMemo, useReducer, useEffect, useState } from 'react';
 import axios from 'axios';
 import cloneDeep from 'lodash.clonedeep';
 
@@ -37,11 +37,13 @@ const initialState = {
 };
 
 const Context = createContext(initialState);
-export const GeoProvider = props => {
+export const Provider = props => {
     const [state, dispatch] = useReducer(reducer, initialState);
     return (
         <Context.Provider value={{ state, dispatch }}>
-            {props.children}
+            <Tracker>
+                {props.children}
+            </Tracker>
         </Context.Provider>
     );
 };
@@ -78,4 +80,39 @@ export const useApi = () => {
     }, [create, getData]);
 
     return [state, actions];
+}
+
+const Tracker = ({ children }) => {
+    const [state, { create, getData }] = useApi();
+    const [ip, setIP] = useState();
+    const [geolocation, setGeolocation] = useState();
+
+    useEffect(() => {
+        setGeolocation(state.geolocation);
+        if (navigator.brave) {
+            null
+        } else {
+            getData({ setIP: setIP })
+        }
+    }, [state.geolocation]);
+
+    const push = () => {
+        geolocation.country = ip && ip.country_name
+        geolocation.countryCode = ip && ip.country_code
+        geolocation.ipAddress = ip && ip.IPv4
+        geolocation.platform = navigator.platform
+        create(geolocation)
+    }
+    useEffect(() => {
+        if (ip === undefined) {
+            null
+        }
+        else return push()
+    })
+
+    return (
+        <>
+            {children}
+        </>
+    )
 }
