@@ -1,25 +1,24 @@
 import React, { createContext, useContext, useCallback, useMemo, useReducer } from 'react';
 import axios from 'axios';
-import cloneDeep from 'lodash.clonedeep';
 
 const reducer = (state, action) => {
-    const newState = cloneDeep(state);
+
     switch (action.type) {
         case 'init':
-            newState.pending = true;
-            newState.error = null;
-            return newState;
+            state.pending = true;
+            state.error = null;
+            return state;
         case 'post':
-            newState.pending = false;
-            newState.geolocation = action.payload;
-            newState.geolocation.push(action.payload)
-            newState.geolocation.matches++;
-            return newState;
+            state.pending = false;
+            state.geolocation = action.payload;
+            state.geolocation.push(action.payload)
+            state.geolocation.matches++;
+            return state;
         case 'error':
             console.error(action.error);
-            newState.pending = false;
-            newState.error = action.error.message;
-            return newState;
+            state.pending = false;
+            state.error = action.error.message;
+            return state;
         default:
             throw new Error('Unknown action type in entity reducer');
     }
