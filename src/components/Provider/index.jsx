@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useCallback, useMemo, useReducer, useEffect, useState } from 'react';
+import React, { createContext, useContext, useCallback, useMemo, useReducer } from 'react';
 import axios from 'axios';
 import cloneDeep from 'lodash.clonedeep';
 
@@ -37,13 +37,11 @@ const initialState = {
 };
 
 const Context = createContext(initialState);
-export const Provider = props => {
+export const Provider = ({ children }) => {
     const [state, dispatch] = useReducer(reducer, initialState);
     return (
         <Context.Provider value={{ state, dispatch }}>
-            <Tracker>
-                {props.children}
-            </Tracker>
+            {children}
         </Context.Provider>
     );
 };
@@ -60,7 +58,7 @@ export const useApi = () => {
             },
             body: JSON.stringify(geolocation)
         }
-        const resp = await fetch('http://localhost:8080/geo', reqInit);
+        const resp = await fetch(`${import.meta.env.VITE_BASE_URL}/geo`, reqInit);
         if (resp.ok) {
             dispatch({ type: 'post', payload: await resp.json() });
             console.log(state)
@@ -71,48 +69,12 @@ export const useApi = () => {
     }, [dispatch]);
 
     const getData = async ({ setIP }) => {
-        const res = await axios.get('https://geolocation-db.com/json/')
+        const res = await axios.get(import.meta.env.VITE_API)
         setIP(res.data)
     }
-
     const actions = useMemo(() => {
         return { create, getData }
     }, [create, getData]);
 
     return [state, actions];
-}
-
-const Tracker = ({ children }) => {
-    const [state, { create, getData }] = useApi();
-    const [ip, setIP] = useState();
-    const [geolocation, setGeolocation] = useState();
-
-    useEffect(() => {
-        setGeolocation(state.geolocation);
-        if (navigator.brave) {
-            null
-        } else {
-            getData({ setIP: setIP })
-        }
-    }, [state.geolocation]);
-
-    const push = () => {
-        geolocation.country = ip && ip.country_name
-        geolocation.countryCode = ip && ip.country_code
-        geolocation.ipAddress = ip && ip.IPv4
-        geolocation.platform = navigator.platform
-        create(geolocation)
-    }
-    useEffect(() => {
-        if (ip === undefined) {
-            null
-        }
-        else return push()
-    })
-
-    return (
-        <>
-            {children}
-        </>
-    )
 }

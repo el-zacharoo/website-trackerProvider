@@ -8,7 +8,7 @@ import { Outline } from '@/components/Outline';
 import { theme } from '@/theme';
 import Home from '@/views';
 import Viewport from '@/Viewport';
-import { Provider } from '@/components/Provider'
+import { Tracker } from '@/components/Tracker'
 
 export const App = () => {
   return (
@@ -17,11 +17,11 @@ export const App = () => {
       <Router>
         <Viewport>
           <Suspense fallback={<Outline visible={true} />}>
-            <Provider>
+            <Tracker>
               <Routes>
                 <Route exact path="/" element={<Home />} />
               </Routes>
-            </Provider>
+            </Tracker>
           </Suspense>
         </Viewport>
       </Router>
