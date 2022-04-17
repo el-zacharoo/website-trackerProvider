@@ -10,7 +10,6 @@ import { Outline } from '@/components/Outline';
 import { theme } from '@/theme';
 import Home from '@/views';
 import Viewport from '@/Viewport';
-import { Tracker } from '@/components/Tracker';
 
 const endpoint = prismic.getEndpoint("zachs-website");
 const client = prismic.createClient(endpoint);
@@ -21,22 +20,14 @@ export const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <PrismicProvider
-        client={client}
-        // linkResolver={resolver}
-        internalLinkComponent={({ href, ...props }) => (
-          <RouterLink to={href} {...props} />
-        )}
-      >
+      <PrismicProvider client={client}  >
         <Router>
           <Viewport>
             <Suspense fallback={<Outline visible={true} />}>
-              <Tracker>
-                <Routes>
-                  <Route exact path="/" element={<Home />} />
-                  <Route exact path="/:uid" element={<Home />} />
-                </Routes>
-              </Tracker>
+              <Routes>
+                <Route exact path="/" element={<Home />} />
+                <Route exact path="/:uid" element={<Home />} />
+              </Routes>
             </Suspense>
           </Viewport>
         </Router>

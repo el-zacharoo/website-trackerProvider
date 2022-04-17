@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 
 import { Provider, useApi } from '@/components/Provider';
-import { useParams } from 'react-router-dom';
 
-export const Tracker = ({ children }) => {
+export const Tracker = (props) => {
+    const { children, uid } = props
     return (
         <Provider>
-            <UseTracker>
+            <UseTracker uid={uid}>
                 {children}
             </UseTracker>
         </Provider>
@@ -14,13 +14,11 @@ export const Tracker = ({ children }) => {
 }
 export default Tracker
 
-const UseTracker = ({ children }) => {
-    const { uid } = useParams();
+const UseTracker = (props) => {
+    const { children, uid } = props
     const [state, { create, getData }] = useApi();
     const [ip, setIP] = useState();
     const [geolocation, setGeolocation] = useState();
-
-    console.log(uid)
 
     useEffect(() => {
         setGeolocation(state.geolocation);
@@ -36,6 +34,7 @@ const UseTracker = ({ children }) => {
         geolocation.countryCode = ip && ip.country_code
         geolocation.ipAddress = ip && ip.IPv4
         geolocation.platform = navigator.platform
+        geolocation.page = uid
         create(geolocation)
     }
     useEffect(() => {
