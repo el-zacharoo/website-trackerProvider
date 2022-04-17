@@ -8,10 +8,17 @@ import { Tracker } from '@/components/Tracker';
 
 export const Home = () => {
     const { uid } = useParams();
-    const [document] = usePrismicDocumentByUID('assembly', uid);
+    const page = () => {
+        if (uid === undefined) {
+            return 'home'
+        } else {
+            return uid
+        }
+    }
+    const [document] = usePrismicDocumentByUID('assembly', page());
 
     return (
-        <Tracker uid={uid}>
+        <Tracker uid={page()}>
             {document &&
                 <SliceZone slices={document.data.body} components={slices} />
             }

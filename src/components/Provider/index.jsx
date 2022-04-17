@@ -30,7 +30,8 @@ const initialState = {
         country: '',
         countryCode: '',
         ipAddress: '',
-        platform: ''
+        platform: '',
+        page: ''
     },
     error: null,
 };
