@@ -1,5 +1,6 @@
 import React from 'react';
 
+import Box from '@mui/material/Box';
 import Button from '@mui/material/Button'
 import PersonPinCircleRoundedIcon from '@mui/icons-material/PersonPinCircleRounded';
 import AppBar from '@mui/material/AppBar';
@@ -22,9 +23,11 @@ export const Header = () => {
                         <PersonPinCircleRoundedIcon alt="" color="info" />
                         <Typography variant="h4">{import.meta.env.VITE_APP_NAME}</Typography>
                     </Link>
-                    {document.data.nav.map((item, i) =>
-                        <Button color="info" key={i} component={RouterLink} to={item.nav_items.uid} >{item.nav_items.uid}</Button>
-                    )}
+                    <Box>
+                        {document.data.nav.map((item, i) =>
+                            <Button color="info" key={i} component={RouterLink} to={item.nav_items.uid} >{item.nav_items.uid}</Button>
+                        )}
+                    </Box>
                 </Toolbar>
             }
         </AppBar>

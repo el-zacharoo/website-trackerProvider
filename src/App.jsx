@@ -8,7 +8,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import { Outline } from '@/components/Outline';
 import { theme } from '@/theme';
-import Home from '@/views';
+import View from '@/Views';
 import Viewport from '@/Viewport';
 
 const endpoint = prismic.getEndpoint("zachs-website");
@@ -25,8 +25,8 @@ export const App = () => {
           <Viewport>
             <Suspense fallback={<Outline visible={true} />}>
               <Routes>
-                <Route exact path="/" element={<Home />} />
-                <Route exact path="/:uid" element={<Home />} />
+                <Route exact path="/" element={<View />} />
+                <Route exact path="/:uid" element={<View />} />
               </Routes>
             </Suspense>
           </Viewport>

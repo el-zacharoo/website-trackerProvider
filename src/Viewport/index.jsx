@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
 import PropTypes from 'prop-types';
 
 import Footer from './Footer';
@@ -17,9 +16,7 @@ export const Viewport = ({ children }) => {
         }}
         >
             <Header />
-            <Container sx={{ my: 10 }} maxWidth="md">
-                {children}
-            </Container>
+            {children}
             <Footer />
         </Box>
     );

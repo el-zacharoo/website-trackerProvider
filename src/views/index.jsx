@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 import { slices } from '@/components/Slices';
 import { Tracker } from '@/components/Tracker';
 
-export const Home = () => {
+export const View = () => {
     const { uid } = useParams();
     const page = () => {
         if (uid === undefined) {
@@ -25,4 +25,4 @@ export const Home = () => {
         </Tracker>
     )
 }
-export default Home
+export default View
