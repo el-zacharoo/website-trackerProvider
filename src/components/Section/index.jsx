@@ -8,21 +8,21 @@ import * as PropTypes from 'prop-types';
 
 import { Text, RichText } from '@/components/Text';
 
-export const TextImage = ({ slice }) => {
-    const background = slice.primary.background_colour === true ? { backgroundColor: 'background.paper', py: 6 } : { py: 6 }
+export const Section = ({ slice }) => {
+    const background = slice.primary.text_direction === 'left' ? { backgroundColor: 'background.paper', py: 6 } : { py: 6 }
 
     return (
         <Box sx={background}>
             <Container maxWidth="lg" >
-                {slice.primary.text_position === 'Left' && <Left slice={slice} />}
-                {slice.primary.text_position === 'Centre' && <Centred slice={slice} />}
-                {slice.primary.text_position === 'Right' && <Right slice={slice} />}
+                {slice.primary.text_direction === 'Left' && <Left slice={slice} />}
+                {slice.primary.text_direction === 'Centre' && <Centred slice={slice} />}
+                {slice.primary.text_direction === 'Right' && <Right slice={slice} />}
             </Container>
         </Box>
     )
 }
 
-TextImage.propTypes = {
+Section.propTypes = {
     slice: PropTypes.any,
 };
 
@@ -36,7 +36,8 @@ const Left = ({ slice }) => {
         >
             <Grid item xs={12} md={6}>
                 <Text variant="h2" value={slice.primary.title} />
-                <RichText value={slice.primary.content} />
+                <Text variant="h4" value={slice.primary.subheader} />
+                <RichText value={slice.primary.description} />
             </Grid>
             <Grid item xs={12} md={6}>
                 <Box sx={{ display: 'flex', justifyContent: { md: 'flex-end', xs: 'center' } }}>
@@ -63,7 +64,8 @@ const Centred = ({ slice }) => {
         >
             <Grid item>
                 <Text variant="h2" textAlign={{ md: "center" }} value={slice.primary.title} />
-                <RichText sx={{ display: 'flex', justifyContent: { md: 'center' } }} value={slice.primary.content} />
+                <Text variant="h4" value={slice.primary.subheader} />
+                <RichText sx={{ display: 'flex', justifyContent: { md: 'center' } }} value={slice.primary.description} />
             </Grid>
             <Grid item sx={{ display: 'flex', justifyContent: 'center' }}>
                 {slice.primary.image.url &&
@@ -94,7 +96,8 @@ const Right = ({ slice }) => {
             </Grid>
             <Grid item xs={12} md={6}>
                 <Text variant="h2" value={slice.primary.title} />
-                <RichText value={slice.primary.content} />
+                <Text variant="h4" value={slice.primary.subheader} />
+                <RichText value={slice.primary.description} />
             </Grid>
         </Grid>
     )

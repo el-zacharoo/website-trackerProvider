@@ -16,7 +16,7 @@ export const View = () => {
         }
     }
     const [document] = usePrismicDocumentByUID('assembly', page());
-
+    console.log(document)
     return (
         <Tracker uid={page()}>
             {document &&

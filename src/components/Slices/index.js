@@ -1,8 +1,8 @@
-// import { TextImage } from '@/components/TextImage';
+import { Section } from '@/components/Section';
 import { Hero } from '@/components/Hero';
 
 export const slices = {
-    // section: TextImage,
+    section: Section,
     hero: Hero
 };
 
