@@ -5,30 +5,30 @@ import { useParams } from "react-router-dom";
 
 import { slices } from '@/components/Slices';
 import { Tracker } from '@/components/Tracker';
+import { Outline } from '@/components/Outline';
+
+const slug = () => {
+    const { uid } = useParams();
+    if (uid === undefined) {
+        return 'home'
+    }
+    return uid
+}
 
 export const View = () => {
-    const { uid } = useParams();
-    const page = () => {
-        if (uid === undefined) {
-            return 'home'
-        }
-        return uid
-    }
-
-    const [document, { state }] = usePrismicDocumentByUID('assembly', page());
-    console.log(state)
+    const view = slug()
+    const [document, { state }] = usePrismicDocumentByUID('assembly', view);
 
     return (
         <>
-            {state === 'loaded' ?
-                <Tracker uid={page()}>
-                    {document &&
-                        <SliceZone slices={document.data.body} components={slices} />
-                    }
+            {state !== 'loaded' ?
+                <Outline visible={true} />
+                : document &&
+                <Tracker uid={view}>
+                    <SliceZone slices={document.data.body} components={slices} />
                 </Tracker>
-                :
-                null}
+            }
         </>
     )
 }
-export default View
+export default View; 
