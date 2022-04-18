@@ -8,7 +8,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import { Outline } from '@/components/Outline';
 import { theme } from '@/theme';
-import View from '@/Views';
+import View from '@/View';
 import Viewport from '@/Viewport';
 
 const endpoint = prismic.getEndpoint("zachs-website");
