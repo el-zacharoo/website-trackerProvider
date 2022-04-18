@@ -14,9 +14,8 @@ import Viewport from '@/Viewport';
 const endpoint = prismic.getEndpoint("zachs-website");
 const client = prismic.createClient(endpoint);
 
-console.log(endpoint)
-
 export const App = () => {
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />

@@ -11,18 +11,24 @@ export const View = () => {
     const page = () => {
         if (uid === undefined) {
             return 'home'
-        } else {
-            return uid
         }
+        return uid
     }
-    const [document] = usePrismicDocumentByUID('assembly', page());
-    console.log(document)
+
+    const [document, { state }] = usePrismicDocumentByUID('assembly', page());
+    console.log(state)
+
     return (
-        <Tracker uid={page()}>
-            {document &&
-                <SliceZone slices={document.data.body} components={slices} />
-            }
-        </Tracker>
+        <>
+            {state === 'loaded' ?
+                <Tracker uid={page()}>
+                    {document &&
+                        <SliceZone slices={document.data.body} components={slices} />
+                    }
+                </Tracker>
+                :
+                null}
+        </>
     )
 }
 export default View
