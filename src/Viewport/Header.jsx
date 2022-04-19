@@ -16,7 +16,7 @@ export const Header = () => {
     const [document] = usePrismicDocumentByUID('assembly', 'menu');
 
     return (
-        <AppBar elevation={1} color="secondary" position="relative" sx={{ padding: 1 }}>
+        <AppBar elevation={1} color="primary" position="relative" sx={{ padding: 1 }}>
             {document &&
                 <Toolbar variant='dense' sx={{ display: 'flex', alignItems: 'center', justifyContent: "space-between" }}>
                     <Link underline="none" sx={{ display: 'flex', '& svg': { fontSize: '2rem', mr: 1 }, alignItems: 'center', color: 'info.main' }} component={RouterLink} to="/">
@@ -25,7 +25,7 @@ export const Header = () => {
                     </Link>
                     <Box>
                         {document.data.nav.map((item, i) =>
-                            <Button color="info" key={i} component={RouterLink} to={item.nav_items.uid} >{item.nav_items.uid}</Button>
+                            <Button sx={{ textTransform: 'capitalize' }} color="info" key={i} component={RouterLink} to={item.nav_items.uid} >{item.nav_items.uid}</Button>
                         )}
                     </Box>
                 </Toolbar>

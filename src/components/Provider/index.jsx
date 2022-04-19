@@ -72,9 +72,9 @@ export const useApi = () => {
         const res = await axios.get(import.meta.env.VITE_API)
         if (navigator.brave) {
             null
-        } else {
-            setIP(res.data)
         }
+        setIP(res.data)
+
     }
     const actions = useMemo(() => {
         return { create, getData }

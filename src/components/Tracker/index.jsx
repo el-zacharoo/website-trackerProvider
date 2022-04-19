@@ -32,13 +32,11 @@ const UseTracker = (props) => {
         geolocation.platform = navigator.platform
         geolocation.page = uid
         create(geolocation)
-
     }
     useEffect(() => {
         if (ip === undefined) {
             null
-        }
-        else push()
+        } else push()
     }, [ip])
 
     return (

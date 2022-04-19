@@ -14,6 +14,7 @@ export const Section = ({ slice }) => {
     return (
         <Box sx={background}>
             <Container maxWidth="lg" >
+                {slice.primary.text_direction === null && <Left slice={slice} />}
                 {slice.primary.text_direction === 'Left' && <Left slice={slice} />}
                 {slice.primary.text_direction === 'Centre' && <Centred slice={slice} />}
                 {slice.primary.text_direction === 'Right' && <Right slice={slice} />}

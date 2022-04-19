@@ -7,7 +7,7 @@ import Typography from '@mui/material/Typography';
 export const Footer = () => {
     return (
         <Box component="footer"
-            sx={{ backgroundColor: 'secondary.main', display: "flex", justifyContent: "center", py: 5, px: 2, mt: 'auto' }}>
+            sx={{ backgroundColor: 'primary.main', display: "flex", justifyContent: "center", py: 5, px: 2, mt: 'auto' }}>
             <Copyright />
         </Box>
     );
