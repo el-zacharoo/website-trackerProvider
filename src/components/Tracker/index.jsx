@@ -22,11 +22,7 @@ const UseTracker = (props) => {
 
     useEffect(() => {
         setGeolocation(state.geolocation);
-        if (navigator.brave) {
-            null
-        } else {
-            getData({ setIP: setIP })
-        }
+        getData({ setIP: setIP })
     }, [state.geolocation]);
 
     const push = () => {
@@ -43,7 +39,7 @@ const UseTracker = (props) => {
             null
         }
         else push()
-    })
+    }, [ip])
 
     return (
         <>
