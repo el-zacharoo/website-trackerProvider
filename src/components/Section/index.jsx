@@ -9,14 +9,21 @@ import * as PropTypes from 'prop-types';
 import { Text, RichText } from '@/components/Text';
 
 export const Section = ({ slice }) => {
-    const direction = slice.primary.text_direction === null && 'Left';
+    const left = () => {
+        if (slice.primary.text_direction === null) {
+            return 'Left'
+        }
+        if (slice.primary.text_direction === 'Left') {
+            return 'Left'
+        }
+    }
+    const direction = left()
     const background = direction ? { backgroundColor: 'background.paper', py: 6 } : { py: 6 }
 
     return (
         <Box sx={background}>
             <Container maxWidth="lg" >
                 {direction && <Left slice={slice} />}
-                {slice.primary.text_direction === 'Left' && <Left slice={slice} />}
                 {slice.primary.text_direction === 'Centre' && <Centred slice={slice} />}
                 {slice.primary.text_direction === 'Right' && <Right slice={slice} />}
             </Container>
