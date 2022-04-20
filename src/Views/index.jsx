@@ -15,7 +15,7 @@ const slug = () => {
     return uid
 }
 
-export const View = () => {
+export const Views = () => {
     const view = slug()
     const [document, { state }] = usePrismicDocumentByUID('assembly', view);
 
@@ -31,4 +31,4 @@ export const View = () => {
         </>
     )
 }
-export default View; 
+export default Views; 
