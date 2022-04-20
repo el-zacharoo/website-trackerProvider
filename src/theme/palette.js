@@ -3,7 +3,7 @@ export const palette = {
         main: '#374146'
     },
     secondary: {
-        main: '#447ec5'
+        main: '#4F86C6'
     },
     error: {
         main: '#D80000'
@@ -25,7 +25,7 @@ export const palette = {
     },
     background: {
         default: '#ffffff',
-        paper: '#e7eff8'
+        paper: '#f5f5f5'
     },
 };
 
