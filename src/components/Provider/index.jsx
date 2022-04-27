@@ -58,7 +58,7 @@ export const useApi = () => {
             },
             body: JSON.stringify(geolocation)
         }
-        const resp = await fetch(`${import.meta.env.VITE_BASE_URL}/geo`, reqInit);
+        const resp = await fetch(`${import.meta.env.VITE_BASE_URL}/post`, reqInit);
         if (resp.ok) {
             dispatch({ type: 'post', payload: await resp.json() });
             console.log(state)
